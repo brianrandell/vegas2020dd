@@ -27,7 +27,7 @@ jobs:
       run: dotnet build ./src/ghvsl2020laslivedemo/ghvsl2020laslivedemo/ghvsl2020laslivedemo.csproj --configuration Release 
 
     - name: Package with dotnet
-      run: dotnet publish ./src/path-to-.csproj --configuration Release --output ./output
+      run: dotnet publish ./src/ghvsl2020laslivedemo/ghvsl2020laslivedemo/ghvsl2020laslivedemo.csproj --configuration Release --output ./output
           
     # Create/Update Azure App Service Plan and App Service
     - name: Deploy
