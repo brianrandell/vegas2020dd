@@ -18,4 +18,4 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build ./src/ghvsl2020laslivedemo/ghvsl2020laslivedemo/ghvsl2020laslivedemo.csproj --configuration Release 
