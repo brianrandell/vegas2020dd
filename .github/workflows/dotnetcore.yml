@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ master ]
 
+
+env:
+  AZURE_WEBAPP_NAME: ghvsl2020demolwa
+  AZURE_GROUP_NAME: ghvsl2020demol
+
+
 jobs:
   build:
 
@@ -19,3 +25,29 @@ jobs:
         dotnet-version: 3.1.101
     - name: Build with dotnet
       run: dotnet build ./src/ghvsl2020laslivedemo/ghvsl2020laslivedemo/ghvsl2020laslivedemo.csproj --configuration Release 
+
+    - name: Package with dotnet
+      run: dotnet publish ./src/path-to-.csproj --configuration Release --output ./output
+          
+    # Create/Update Azure App Service Plan and App Service
+    - name: Deploy
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDS }}
+        
+    - run: |
+        az group create -n ${{ env.AZURE_GROUP_NAME }} -l westus 
+        az group deployment create -n ghaction -g ${{ env.AZURE_GROUP_NAME }} --template-file ./src/infra/azureres.json --parameters webAppName=${{ env.AZURE_WEBAPP_NAME }}
+
+    # Deploy Web App
+    - name: 'Azure webapp deploy'
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: './output' 
+
+    # Azure logout 
+    - name: logout
+      run: |
+        az logout
+
