@@ -37,7 +37,7 @@ jobs:
         
     - run: |
         az group create -n ${{ env.AZURE_GROUP_NAME }} -l westus 
-        az group deployment create -n ghaction -g ${{ env.AZURE_GROUP_NAME }} --template-file ./src/infra/arm.json --parameters webAppName=${{ env.AZURE_WEBAPP_NAME }}
+        az group deployment create -n ghaction -g ${{ env.AZURE_GROUP_NAME }} --template-file ./infra/arm.json --parameters webAppName=${{ env.AZURE_WEBAPP_NAME }}
 
     # Deploy Web App
     - name: 'Azure webapp deploy'
